@@ -1,4 +1,6 @@
 class Board
+  attr_reader :height, :width, :mines
+
   def initialize(height:, width:, mines:)
     area = height * width
     if area >= mines
@@ -16,14 +18,39 @@ class Board
 
   def display_board
     R::S.clear
-    R::Cr.go_to_pos(0,0)
+    R::Cr.go_to_pos(1,1)
 
     @board.each do |row|
       row.each do |tile|
         unless tile[1]
-          print "░"
+          print "[■]"
+          next
+        end
+
+        case tile[0]
+        when :safe
+          print "[ ]"
+        when :bomb
+          print "[✱]".color :light_red, type: :bg
+        when 1
+          print "[1]".color :light_blue
+        when 2
+          print "[2]".color :light_green
+        when 3
+          print "[3]".color :light_red
+        when 4
+          print "[4]".color :blue
+        when 5
+          print "[5]".color :red
+        when 6
+          print "[6]".color :green
+        when 7
+          print "[7]".color :light_gray
+        when 8
+          print "[8]".color :gray
         end
       end
+
       puts
     end
   end
