@@ -8,7 +8,7 @@ class Gameplay
 
   def recursive_reveal(x:, y:)
     tile = @board.tile(x:, y:)
-    return if tile[1] == :revealed
+    return unless tile[1] == :hidden
 
     tile[1] = :revealed
     @board.revealed_tiles += 1
