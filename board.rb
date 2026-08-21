@@ -20,7 +20,7 @@ class Board
     cursor_start_pos = R::Cr.pos
 
     R::S.clear
-    R::Cr.go_to_pos(1,1)
+    R::Cr.go_to_pos(1,2)
 
     @board.each do |row|
       row.each do |tile|

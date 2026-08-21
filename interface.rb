@@ -16,7 +16,7 @@ class Interface
     @y = y if y
 
     cursor_x = 2 + (@x * 3)
-    cursor_y = @y + 1
+    cursor_y = @y + 2
 
     R::Cr.go_to_pos(cursor_x, cursor_y)
   end
