@@ -13,13 +13,13 @@ at_exit do
   RBText::Screen.exit_alternate_screen_mode
 end
 
-BOARD_HEIGHT = 30
-BOARD_WIDTH = 16
+BOARD_HEIGHT = 16
+BOARD_WIDTH = 30
 MINES = 99
 
 board = Board.new(height: BOARD_HEIGHT, width: BOARD_WIDTH, mines: MINES)
 statusbar = Statusbar.new(board)
-gameplay = Gameplay.new(board)
+gameplay = Gameplay.new(board:, statusbar: )
 interface = Interface.new(board:, gameplay:, statusbar: )
 
 board.display_board

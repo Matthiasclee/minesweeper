@@ -1,8 +1,9 @@
 class Gameplay
   attr_accessor :status
 
-  def initialize(board)
+  def initialize(board:, statusbar: )
     @board = board
+    @statusbar = statusbar
     @status = :in_play
   end
 
@@ -22,7 +23,14 @@ class Gameplay
 
   def loss
     @status = :loss
-    @board.show_all = true
+    @board.show_all = :loss
+    @statusbar.display_bar(game_over: :loss)
+  end
+
+  def win
+    @status = :win
+    @board.show_all = :win
+    @statusbar.display_bar(game_over: :win)
   end
 
   private

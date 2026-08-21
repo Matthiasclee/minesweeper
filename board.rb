@@ -43,7 +43,7 @@ class Board
         when :safe
           print "[ ]"
         when :bomb
-          print "[✱]".color :light_red, type: :bg
+          print "[✱]".color (show_all == :win ? :light_green : :light_red), type: :bg
         when 1
           print "[1]".color :light_blue
         when 2

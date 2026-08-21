@@ -40,6 +40,8 @@ class Interface
   end
 
   def reveal_tile
+    return unless @gameplay.status == :in_play
+
     tile = @board.tile(x: @x, y: @y)
     return unless tile[1] == :hidden
 
@@ -51,10 +53,15 @@ class Interface
       @gameplay.loss
     else
       @gameplay.recursive_reveal(x: @x, y: @y)
+
+      if @board.revealed_tiles == @height * @width - @board.mines
+        @gameplay.win
+      else
+        @statusbar.display_bar
+      end
     end
 
     @board.display_board
-    @statusbar.display_bar
   end
 
   def move_left
