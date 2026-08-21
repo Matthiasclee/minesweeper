@@ -26,8 +26,8 @@ class Board
       row.each do |tile|
         case tile[1]
         when :hidden
-        #  print "[■]"
-        #  next
+          print "[■]"
+          next
         when :flagged
           print "[◄]".color :light_red
           next

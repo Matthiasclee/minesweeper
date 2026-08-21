@@ -5,14 +5,21 @@ class Gameplay
 
   def recursive_reveal(x:, y:)
     tile = @board.tile(x:, y:)
+    return if tile[1] == :revealed
+
     tile[1] = :revealed
+
+    if tile[0] == :safe
+      neighboring_tiles(x:,y:).each do |t|
+        recursive_reveal(x: t[0], y: t[1])
+      end
+    end
   end
 
   private
   
   def neighboring_tiles(x:, y:)
-    bombs = []
-    safe = []
+    tiles = []
 
     tile_relative_positions = [
       [-1, -1],
@@ -34,12 +41,9 @@ class Gameplay
       tile = @board.tile(x: position[0], y: position[1])
       next unless tile
 
-      tiles << tile
+      tiles << [position[0], position[1]]
     end
 
-    return {
-      bombs: bombs,
-      safe: safe
-    }
+    return tiles
   end
 end

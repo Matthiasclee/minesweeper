@@ -43,9 +43,9 @@ class Interface
       @board.place_mines(x: @x, y: @y)
     end
 
-    @board.display_board
+    @gameplay.recursive_reveal(x: @x, y: @y)
 
-    @board
+    @board.display_board
   end
 
   def move_left
