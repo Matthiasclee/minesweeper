@@ -1,6 +1,6 @@
 class Board
   attr_reader :height, :width, :mines, :mines_placed
-  attr_accessor :show_all, :revealed_tiles
+  attr_accessor :show_all, :revealed_tiles, :flagged_tiles
 
   def initialize(height:, width:, mines:)
     area = height * width
@@ -14,6 +14,7 @@ class Board
 
     @show_all = false
     @revealed_tiles = 0
+    @flagged_tiles = 0
 
     @mines_placed = false
 
@@ -23,7 +24,6 @@ class Board
   def display_board(return_to_pos: true)
     cursor_start_pos = R::Cr.pos
 
-    R::S.clear
     R::Cr.go_to_pos(1,2)
 
     @board.each do |row|

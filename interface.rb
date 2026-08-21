@@ -1,9 +1,10 @@
 class Interface
-  def initialize(board:, gameplay:)
+  def initialize(board:, gameplay:, statusbar: )
     @height = board.height
     @width = board.width
     @board = board
     @gameplay = gameplay
+    @statusbar = statusbar
 
     @x = nil
     @y = nil
@@ -28,11 +29,14 @@ class Interface
     case tile[1]
     when :flagged
       tile[1] = :hidden
+      @board.flagged_tiles -= 1
     when :hidden
       tile[1] = :flagged
+      @board.flagged_tiles += 1
     end
 
     @board.display_board
+    @statusbar.display_bar
   end
 
   def reveal_tile
@@ -50,6 +54,7 @@ class Interface
     end
 
     @board.display_board
+    @statusbar.display_bar
   end
 
   def move_left

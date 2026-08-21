@@ -2,6 +2,7 @@ require "rbtext"
 require "rbtext/string_methods"
 
 require_relative "board"
+require_relative "status"
 require_relative "gameplay"
 require_relative "interface"
 
@@ -17,10 +18,12 @@ BOARD_WIDTH = 16
 MINES = 99
 
 board = Board.new(height: BOARD_HEIGHT, width: BOARD_WIDTH, mines: MINES)
+statusbar = Statusbar.new(board)
 gameplay = Gameplay.new(board)
-interface = Interface.new(board:, gameplay: )
+interface = Interface.new(board:, gameplay:, statusbar: )
 
 board.display_board
+statusbar.display_bar
 
 interface.select_tile(y: 0, x: 0)
 
