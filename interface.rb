@@ -1,8 +1,9 @@
 class Interface
-  def initialize(board)
+  def initialize(board:, gameplay:)
     @height = board.height
     @width = board.width
     @board = board
+    @gameplay = gameplay
 
     @x = nil
     @y = nil
@@ -35,6 +36,16 @@ class Interface
   end
 
   def reveal_tile
+    tile = @board.tile(x: @x, y: @y)
+    return unless tile[1] == :hidden
+
+    unless @board.mines_placed
+      @board.place_mines(x: @x, y: @y)
+    end
+
+    @board.display_board
+
+    @board
   end
 
   def move_left

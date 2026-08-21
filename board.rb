@@ -1,9 +1,9 @@
 class Board
-  attr_reader :height, :width, :mines
+  attr_reader :height, :width, :mines, :mines_placed
 
   def initialize(height:, width:, mines:)
     area = height * width
-    if area >= mines
+    if area <= mines
       mines = area - 1
     end
 
@@ -11,7 +11,7 @@ class Board
     @width = width
     @mines = mines
 
-    @first_hit = false
+    @mines_placed = false
 
     generate_board
   end
@@ -26,8 +26,8 @@ class Board
       row.each do |tile|
         case tile[1]
         when :hidden
-          print "[■]"
-          next
+        #  print "[■]"
+        #  next
         when :flagged
           print "[◄]".color :light_red
           next
@@ -64,7 +64,31 @@ class Board
   end
 
   def tile(x:, y:)
-    return @board[y][x]
+    return @board[y]&.[](x)
+  end
+
+  def place_mines(y:, x:)
+    return false if @mines_placed
+
+    @mines.times do
+      cur_tile = []
+      loop do
+        cur_tile = [
+          rand(0..@height-1),
+          rand(0..@width-1)
+        ]
+
+        next if cur_tile == [y, x]
+        next if @board[cur_tile[0]][cur_tile[1]][0] == :bomb
+        break if @board[cur_tile[0]][cur_tile[1]][0] == :safe
+      end
+
+      @board[cur_tile[0]][cur_tile[1]][0] = :bomb
+    end
+
+    place_numbers
+
+    @mines_placed = true
   end
 
   private
@@ -84,22 +108,38 @@ class Board
     end
   end
 
-  def place_mines(y, x)
-    false unless @first_hit
+  def place_numbers
+    @height.times do |y|
+      @width.times do |x|
+        bombs = 0
 
-    @mines.times do
-      tile = []
-      loop do
-        tile = [
-          Math.rand(0..@height),
-          Math.rand(0..@width)
+        tile_relative_positions = [
+          [-1, -1],
+          [-1, 0],
+          [-1, 1],
+          [0, -1],
+          [0, 1],
+          [1, -1],
+          [1, 0],
+          [1, 1]
         ]
 
-        next if tile == [y, x]
-        break if @board[tile[0]][tile[1]][0] == :safe
-      end
+        tile_relative_positions.each do |r_pos|
+          position = [
+            x + r_pos[0],
+            y + r_pos[1]
+          ]
 
-      @board[tile[0]][tile[1]][0] = :bomb
+          cur_tile = tile(x: position[0], y: position[1])
+          next unless cur_tile
+
+          bombs += 1 if cur_tile[0] == :bomb
+        end
+
+        if bombs != 0
+          tile(x:,y:)[0] = bombs
+        end
+      end
     end
   end
 end
