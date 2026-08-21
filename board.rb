@@ -16,14 +16,20 @@ class Board
     generate_board
   end
 
-  def display_board
+  def display_board(return_to_pos: true)
+    cursor_start_pos = R::Cr.pos
+
     R::S.clear
     R::Cr.go_to_pos(1,1)
 
     @board.each do |row|
       row.each do |tile|
-        unless tile[1]
+        case tile[1]
+        when :hidden
           print "[■]"
+          next
+        when :flagged
+          print "[◄]".color :light_red
           next
         end
 
@@ -53,6 +59,12 @@ class Board
 
       puts
     end
+
+    R::Cr.go_to_pos(cursor_start_pos) if return_to_pos
+  end
+
+  def tile(x:, y:)
+    return @board[y][x]
   end
 
   private
@@ -62,8 +74,14 @@ class Board
 
     row = []
 
-    @width.times { row << [:safe, false] }
+    @width.times { row << nil }
     @height.times { @board << row.dup }
+
+    @height.times do |y|
+      @width.times do |x|
+        @board[y][x] = [:safe, :hidden]
+      end
+    end
   end
 
   def place_mines(y, x)
