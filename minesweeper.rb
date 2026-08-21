@@ -28,17 +28,17 @@ loop do
   case R::S.getch
   when :"ctrl-c"
     exit
-  when :up
+  when ?w
     interface.move_up
-  when :down
+  when ?s
     interface.move_down
-  when :left
+  when ?a
     interface.move_left
-  when :right
+  when ?d
     interface.move_right
-  when "/"
+  when ?q
     interface.flag_tile
-  when :enter
+  when ?r
     interface.reveal_tile
   end
 end

@@ -43,7 +43,11 @@ class Interface
       @board.place_mines(x: @x, y: @y)
     end
 
-    @gameplay.recursive_reveal(x: @x, y: @y)
+    if tile[0] == :bomb
+      @gameplay.loss
+    else
+      @gameplay.recursive_reveal(x: @x, y: @y)
+    end
 
     @board.display_board
   end

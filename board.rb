@@ -1,5 +1,6 @@
 class Board
   attr_reader :height, :width, :mines, :mines_placed
+  attr_accessor :show_all, :revealed_tiles
 
   def initialize(height:, width:, mines:)
     area = height * width
@@ -10,6 +11,9 @@ class Board
     @height = height
     @width = width
     @mines = mines
+
+    @show_all = false
+    @revealed_tiles = 0
 
     @mines_placed = false
 
@@ -24,13 +28,15 @@ class Board
 
     @board.each do |row|
       row.each do |tile|
-        case tile[1]
-        when :hidden
-          print "[■]"
-          next
-        when :flagged
-          print "[◄]".color :light_red
-          next
+        unless @show_all
+          case tile[1]
+          when :hidden
+            print "[■]"
+            next
+          when :flagged
+            print "[◄]".color(:light_red).color(:gray, type: :bg).bold
+            next
+          end
         end
 
         case tile[0]

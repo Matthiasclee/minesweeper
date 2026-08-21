@@ -1,6 +1,9 @@
 class Gameplay
+  attr_accessor :status
+
   def initialize(board)
     @board = board
+    @status = :in_play
   end
 
   def recursive_reveal(x:, y:)
@@ -8,12 +11,18 @@ class Gameplay
     return if tile[1] == :revealed
 
     tile[1] = :revealed
+    @board.revealed_tiles += 1
 
     if tile[0] == :safe
       neighboring_tiles(x:,y:).each do |t|
         recursive_reveal(x: t[0], y: t[1])
       end
     end
+  end
+
+  def loss
+    @status = :loss
+    @board.show_all = true
   end
 
   private
