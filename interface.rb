@@ -68,6 +68,46 @@ class Interface
     select_tile(y: @y+1)
   end
 
+  def half_up
+    half = (@height-1)/2
+
+    if @y > half
+      select_tile(y: half)
+    else
+      select_tile(y: 0)
+    end
+  end
+
+  def half_down
+    half = (@height-1)/2
+
+    if @y < half
+      select_tile(y: half)
+    else
+      select_tile(y: @height-1)
+    end
+  end
+
+  def half_left
+    half = (@width-1)/2
+
+    if @x > half
+      select_tile(x: half)
+    else
+      select_tile(x: 0)
+    end
+  end
+
+  def half_right
+    half = (@width-1)/2
+
+    if @x < half
+      select_tile(x: half)
+    else
+      select_tile(x: @width-1)
+    end
+  end
+
   private
   
   def in_bounds?(y: nil, x: nil)

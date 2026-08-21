@@ -28,6 +28,34 @@ loop do
   case R::S.getch
   when :"ctrl-c"
     exit
+
+  when :pageup
+    interface.select_tile(y: 0)
+  when :pagedown
+    interface.select_tile(y: board.height-1)
+  when :home
+    interface.select_tile(x: 0)
+  when :end
+    interface.select_tile(x: board.width-1)
+
+  when :up
+    interface.move_up
+  when :down
+    interface.move_down
+  when :left
+    interface.move_left
+  when :right
+    interface.move_right
+
+  when ?W
+    interface.half_up
+  when ?S
+    interface.half_down
+  when ?A
+    interface.half_left
+  when ?D
+    interface.half_right
+
   when ?w
     interface.move_up
   when ?s
@@ -36,9 +64,14 @@ loop do
     interface.move_left
   when ?d
     interface.move_right
+
   when ?q
     interface.flag_tile
+  when ?/
+    interface.flag_tile
   when ?r
+    interface.reveal_tile
+  when :enter
     interface.reveal_tile
   end
 end
