@@ -64,6 +64,7 @@ class Board
   end
 
   def tile(x:, y:)
+    return nil if (x < 0 || y < 0)
     return @board[y]&.[](x)
   end
 
@@ -111,6 +112,8 @@ class Board
   def place_numbers
     @height.times do |y|
       @width.times do |x|
+        next unless tile(x:,y:)[0] == :safe
+
         bombs = 0
 
         tile_relative_positions = [
@@ -133,7 +136,9 @@ class Board
           cur_tile = tile(x: position[0], y: position[1])
           next unless cur_tile
 
-          bombs += 1 if cur_tile[0] == :bomb
+          if cur_tile[0] == :bomb
+            bombs += 1 
+          end
         end
 
         if bombs != 0
