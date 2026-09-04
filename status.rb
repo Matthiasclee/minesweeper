@@ -21,7 +21,7 @@ class Statusbar
       ) 
     when false
       print(
-        "Remaining: #{@mines - @board.flagged_tiles} / #{@mines}".color(:red).color(:light_green, type: :bg).bold
+        "Remaining: #{@mines - @board.flagged_tiles} / #{@mines}\t(#{(@board.flagged_tiles * 100.0 / @board.mines).round(2)}%)".color(:red).color(:light_green, type: :bg).bold
       ) 
     end
 
