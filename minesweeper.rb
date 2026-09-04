@@ -13,9 +13,9 @@ at_exit do
   RBText::Screen.exit_alternate_screen_mode
 end
 
-BOARD_HEIGHT = 16
-BOARD_WIDTH = 30
-MINES = 99
+BOARD_HEIGHT = R::S.height - 2
+BOARD_WIDTH = (R::S.width / 3)
+MINES = BOARD_HEIGHT * BOARD_WIDTH / 5
 
 board = Board.new(height: BOARD_HEIGHT, width: BOARD_WIDTH, mines: MINES)
 statusbar = Statusbar.new(board)
