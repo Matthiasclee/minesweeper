@@ -8,14 +8,14 @@ class Gameplay
   end
 
   def recursive_reveal(x:, y:)
-    tile = @board.tile(x:, y:)
+    tile = @board.tile(x: x, y: y)
     return unless tile[1] == :hidden
 
     tile[1] = :revealed
     @board.revealed_tiles += 1
 
     if tile[0] == :safe
-      neighboring_tiles(x:,y:).each do |t|
+      neighboring_tiles(x: x,y: y).each do |t|
         recursive_reveal(x: t[0], y: t[1])
       end
     end

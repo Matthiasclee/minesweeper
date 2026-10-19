@@ -19,8 +19,8 @@ MINES = BOARD_HEIGHT * BOARD_WIDTH / 5
 
 board = Board.new(height: BOARD_HEIGHT, width: BOARD_WIDTH, mines: MINES)
 statusbar = Statusbar.new(board)
-gameplay = Gameplay.new(board:, statusbar: )
-interface = Interface.new(board:, gameplay:, statusbar: )
+gameplay = Gameplay.new(board: board, statusbar: statusbar)
+interface = Interface.new(board: board, gameplay: gameplay, statusbar: statusbar)
 
 board.display_board
 statusbar.display_bar

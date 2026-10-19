@@ -118,7 +118,7 @@ class Board
   def place_numbers
     @height.times do |y|
       @width.times do |x|
-        next unless tile(x:,y:)[0] == :safe
+        next unless tile(x: x,y: y)[0] == :safe
 
         bombs = 0
 
@@ -148,7 +148,7 @@ class Board
         end
 
         if bombs != 0
-          tile(x:,y:)[0] = bombs
+          tile(x: x,y: y)[0] = bombs
         end
       end
     end

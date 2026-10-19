@@ -11,7 +11,7 @@ class Interface
   end
 
   def select_tile(y: nil, x: nil)
-    return unless in_bounds?(y:,x:)
+    return unless in_bounds?(y: y,x: x)
 
     @x = x if x
     @y = y if y
