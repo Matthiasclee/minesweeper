@@ -1,5 +1,5 @@
-require "rbtext"
-require "rbtext/string_methods"
+require_relative "rbtext/lib/rbtext.rb"
+require_relative "rbtext/lib/rbtext/string_methods.rb"
 
 require_relative "board"
 require_relative "status"
